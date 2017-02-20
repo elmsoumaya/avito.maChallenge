@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+        <style type="text/css">
+            body { margin: 0 25%;}
+            section {text-align: center;}
+        </style>
+    </head>
+    <body>
+        <p class="ui hidden divider"></p>
+        <section ng-app="Vimeo" ng-controller="VimeoController as ctrl">
+            <input type="text" placeholder="search" ng-model="query">
+            Per Page:
+            <select name="per_page" id="" ng-model="per_page">
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+            Sort:
+            <select name="sort" ng-model="sort">
+                <option value="default">default</option>
+                <option value="date">date</option>
+                <option value="alphabetical">alphabetical</option>
+                <option value="plays">plays</option>
+                <option value="likes">likes</option>
+                <option value="comments">comments</option>
+                <option value="duration">duration</option>
+                <option value="added">added</option>
+                <option value="modified_time">modified_time</option>
+                <option value="manual">manual</option>
+            </select>
+            
+            <button class="circular ui icon button" ng-click="update()">
+                <i class="icon search"></i>
+            </button>
+
+            <div class="ui feed" ng-repeat="video in results.data">
+                <div class="event">
+                    <div class="label">
+                        <a href="https://vimeo.com/{{video.user.uri}}">
+                            <img src="{{video.user.pictures.sizes[0].link}}" alt="{{video.user.name}}">
+                        </a>
+                    </div> <!-- User picture -->
+                    <div class="content">
+                        <div class="summary">
+                            <a class="user">
+                              {{video.user.name}}
+                            </a>
+                        </div> <!-- User name-->
+                        <div class="extra images">
+                            <a href="https://vimeo.com/{{video.uri}}">
+                                <img src="{{video.pictures.sizes[0].link}}" alt="{{video.name}}" style="width: 40%;">
+                            </a>
+                        </div>
+                        <div class="summary">
+                            <a class="user">
+                              {{video.name}}
+                            </a>
+                        </div> <!-- Video Title-->
+                        <div class="meta">
+                            <a class="like">
+                              <i class="like icon"></i> {{video.metadata.connections.likes.total}} Likes
+                            </a> <!-- Nbr of likes -->
+                            <a class="play">
+                                <i class="play icon"></i> {{video.stats.plays}} Views
+                            </a> <!-- Nbr of plays -->
+                            <a class="comments">
+                                <i class="comments icon"></i> {{video.metadata.connections.comments.total}} Comments
+                            </a> <!-- Nbr of comments -->
+                        </div>
+                        <div class="extra text">
+                            {{video.description}}
+                        </div> <!-- Video description -->
+                    </div>
+                </div>
+            </div>
+            <div class="ui buttons">
+                <button class="ui labeled icon button" ng-click="update(results.paging.previous)" ng-if="results.paging.previous">
+                    <i class="left chevron icon"></i>
+                    Back
+                </button>
+                <button class="ui right labeled icon button" ng-click="update(results.paging.next)" ng-if="results.paging.next">
+                    Forward
+                    <i class="right chevron icon"></i>
+                </button>
+            </div>
+        </section>
+    </body>
+</html>

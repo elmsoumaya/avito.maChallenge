@@ -3,7 +3,7 @@ Auteur: Soumaya EL MORTAJI
 | avito.ma Challenge |
 +--------------------+
 
-This projects represents a vimeo feed, providing additional information (number of plays, likes and comments) and a basic form to filter the resulats...
+This project represents a vimeo feed, providing additional information (number of plays, likes and comments) and a basic form to filter the resulats...
 
 # Files
 
